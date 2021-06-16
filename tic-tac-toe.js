@@ -98,6 +98,8 @@ const gameController = (() => {
         } else if (player2Won == true) {
             alert ("Congratulations, Player 2 won!");
         }
+        player1Won = false;
+        player2Won = false;
     };
 
     const play = (index) => {

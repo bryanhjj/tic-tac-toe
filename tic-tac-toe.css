@@ -1,19 +1,39 @@
 .gameboard-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 454px;
-    height: 454px;
-    border: 2px solid var(--border-color);
-    margin: 0px auto;
+    width: 480px;
+    height: 480px;
+    border: 2px solid grey;
+    margin: auto;
+    grid-gap: auto;
+    justify-items: center;
+    background-color: grey;
   }
-  
+
 .tttField {
-    width: 150px;
-    height: 150px;
-    border: 1px solid var(--border-color);
-    background-color: var(--field-background-color);
+    width: 140px;
+    height: 140px;
+    border: 1px solid grey;
+    background-color: white;
     font-size: 10rem;
     text-align: center;
-    cursor: pointer;
-    user-select: none;
+    margin: auto;
   }
+
+body {
+  background-color: #2040a9;
+}
+
+.header {
+  text-align: center;
+  font-size: 35px;
+  color: oldlace;
+  font-family: cursive;
+}
+
+.button-container {
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  padding-top: 1rem;
+}
