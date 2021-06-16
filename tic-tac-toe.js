@@ -81,14 +81,14 @@ const gameController = (() => {
     // to switch between players based on the rounds (ie. player1 always go first in the 1st round)
     const switchIcon = () => {
         if (round % 2 != 0) {
-            curPlayer = player1;
+            return player1.getIcon();
         } else {
-            curPlayer = player2;
+            return player2.getIcon();
         }
     };
 
     const winCheck = () => {
-        if (round > 9) {
+        if (round >= 9) {
             alert("It's a draw!");
             round = 0;
             gameBoard.clearBoard();
@@ -100,12 +100,11 @@ const gameController = (() => {
     };
 
     const play = (index) => {
-        gameBoard.setArea(index, curPlayer.getIcon());
-        gameController.checkColumns();
-        gameController.checkRows();
-        gameController.checkDiagonal();
-        gameController.winCheck();
-        gameController.switchIcon();
+        gameBoard.setArea(index, switchIcon());
+        checkColumns();
+        checkRows();
+        checkDiagonal();
+        winCheck();
         round++;
     };
 
@@ -113,7 +112,21 @@ const gameController = (() => {
 
 })();
 
-//module for display
+//module for display and interacting with html DOMs
 const displayController = (() => {
+    const playField = document.querySelectorAll(".tttField");
+
+    const updateField = () => {
+        for (let i = 0; i < 9; i++) {
+            playField[i].textContent = gameBoard.getArea(i);
+        };
+    };
+
+    playField.forEach((field) => {
+        field.addEventListener("click", () => {
+            gameController.play(field.id);
+            updateField();
+        });
+    });
 
 })();
