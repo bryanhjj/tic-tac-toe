@@ -10,10 +10,12 @@ const gameBoard = (() => {
 
     const setArea = (index, icon) => {
         if (index >= board.length) {
-            alert("Invalid area, please try again.");
+            alert("Invalid area, please try again.")
+            throw "Invalid area";
         };
         if (board[index] !="") {
-            alert("That area is no longer available, please pick another area.");
+            alert("That area is no longer available, please pick another area.")
+            throw "Area is occupied";
         } else {
             board[index] = icon;
         };
@@ -37,7 +39,6 @@ const gameBoard = (() => {
 const gameController = (() => {
     const player1 = Player("X");
     const player2 = Player("O");
-    let curPlayer;
     let round = 1;
     let player1Won = false;
     let player2Won = false;
@@ -108,13 +109,19 @@ const gameController = (() => {
         round++;
     };
 
-    return {play};
+    // to be exported so it can be attached to the resetButton
+    const resetRounds = () => {
+        round = 1;
+    }
+
+    return {play, resetRounds};
 
 })();
 
 //module for display and interacting with html DOMs
 const displayController = (() => {
     const playField = document.querySelectorAll(".tttField");
+    const resetButton = document.querySelector(".restart");
 
     const updateField = () => {
         for (let i = 0; i < 9; i++) {
@@ -127,6 +134,12 @@ const displayController = (() => {
             gameController.play(field.id);
             updateField();
         });
+    });
+
+    resetButton.addEventListener("click", () => {
+        gameController.resetRounds();
+        gameBoard.clearBoard();
+        updateField();
     });
 
 })();
