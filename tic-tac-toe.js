@@ -89,14 +89,14 @@ const gameController = (() => {
     };
 
     const winCheck = () => {
-        if (round >= 9) {
-            alert("It's a draw!");
-            round = 0;
-            gameBoard.clearBoard();
-        } else if (player1Won == true) {
+        if (player1Won == true) {
             alert ("Congratulations, Player 1 won!");
         } else if (player2Won == true) {
             alert ("Congratulations, Player 2 won!");
+        } else if (round > 9) {
+            alert("It's a draw!");
+            round = 0;
+            gameBoard.clearBoard();
         }
         player1Won = false;
         player2Won = false;
@@ -107,7 +107,6 @@ const gameController = (() => {
         checkColumns();
         checkRows();
         checkDiagonal();
-        winCheck();
         round++;
     };
 
@@ -116,7 +115,7 @@ const gameController = (() => {
         round = 1;
     }
 
-    return {play, resetRounds};
+    return {play, resetRounds, winCheck};
 
 })();
 
@@ -135,6 +134,7 @@ const displayController = (() => {
         field.addEventListener("click", () => {
             gameController.play(field.id);
             updateField();
+            gameController.winCheck();
         });
     });
 
